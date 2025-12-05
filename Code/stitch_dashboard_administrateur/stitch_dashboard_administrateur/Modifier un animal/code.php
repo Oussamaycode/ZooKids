@@ -34,7 +34,7 @@ if (isset($_POST['submit'])) {
     $sql .= " WHERE id = $idAnimal";
 
     if (mysqli_query($conn, $sql)) {
-        header("Location: ../liste_des_animaux/code.php");
+        header("Location: ../liste_des_habitats/code.php");
         exit();
     } else {
         die("Erreur SQL : " . mysqli_error($conn));

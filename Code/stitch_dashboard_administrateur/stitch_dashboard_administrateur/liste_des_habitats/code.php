@@ -62,9 +62,12 @@ tailwind.config = {
 </a>
 <div class="flex flex-1 justify-end gap-8">
 <div class="hidden sm:flex items-center gap-9">
+<div class="hidden sm:flex items-center gap-9">
 <a class="text-primary dark:text-background-light text-sm font-medium leading-normal hover:text-primary dark:hover:text-primary" href="../liste_des_habitats/code.php">Habitats</a>
+<a class="text-[#0d1c0d] dark:text-primary text-sm font-medium leading-normal hover:text-primary dark:hover:text-primary" href="../liste_des_animaux/code.php">Animaux</a>
 <a class="text-[#0d1c0d] dark:text-primary text-sm font-medium leading-normal hover:text-primary dark:hover:text-primary" href="../accueil_du_zoo/code.html">Accueil</a>
-<a class="text-[#0d1c0d] dark:text-background-light text-sm font-medium leading-normal hover:text-primary dark:hover:text-primary" href="../liste_des_animaux/code.html">Animaux</a>
+<a class="text-[#0d1c0d] dark:text-background-light text-sm font-medium leading-normal hover:text-primary dark:hover:text-primary" href="../tableau_de_bord_statistiques/code.php">Statistiques</a>
+</div>
 </div>
 </div>
 </header>
@@ -94,7 +97,7 @@ tailwind.config = {
         
         <!-- Icon: optional column in DB, fallback -->
         
-    <img src="../ajouter_un_animal/<?php echo $habitat['image']; ?>" class="h-full w-full object-cover">
+    <img src="../Modifier_un_habitat/<?php echo $habitat['image']; ?>" class="h-full w-full object-cover">
 
         <div>
             <p class="text-[#0d1c0d] dark:text-background-light text-xl font-bold">

@@ -29,14 +29,22 @@ if (isset($_POST['submit'])) {
         }
     }
 
-    $sql .= " WHERE id = $idHabitat";
+    $sql .= " WHERE id = $Idhabitat";
 
     if (mysqli_query($conn, $sql)) {
-        header("Location: ../liste_des_animaux/code.php");
+        header("Location: ../liste_des_habitats/code.php");
         exit();
     } else {
         die("Erreur SQL : " . mysqli_error($conn));
     }
+}
+$sql = "SELECT * FROM habitats WHERE id = $Idhabitat";
+$resultat = $conn->query($sql);
+
+if ($resultat->num_rows > 0) {
+    $habitat = $resultat->fetch_assoc();
+} else {
+    die("Aucun habitat trouvé avec cet ID.");
 }
 
 ?>
@@ -56,27 +64,39 @@ if (isset($_POST['submit'])) {
 <form action="" method="POST" enctype="multipart/form-data" class="bg-white shadow-xl rounded-2xl p-8 w-full max-w-lg">
     <h1 class="text-2xl font-extrabold mb-6 text-center text-green-700">Modifier un Habitat</h1>
 
+    <input type="hidden" name="id" value="<?= $habitat['id']; ?>">
+
     <div class="mb-5">
         <label class="block mb-2 font-semibold text-gray-700">Nom de l'habitat</label>
-        <input type="text" name="nom" required placeholder="Ex: Savane" 
+        <input type="text" name="nom" placeholder="Ex: Savane" 
+              value="<?= htmlspecialchars($habitat['nom']); ?>"
                class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-300 transition">
     </div>
 
     <div class="mb-5">
         <label class="block mb-2 font-semibold text-gray-700">Image</label>
-        <input type="file" name="image" accept="image/*" required
-               class="w-full text-gray-600 file:border-0 file:bg-green-100 file:text-green-700 file:px-4 file:py-2 file:rounded-xl file:cursor-pointer hover:file:bg-blue-200 transition">
-    </div>
+        <input type="file" name="image" accept="image/*" 
+          class="w-full text-gray-600 file:border-0 file:bg-green-100 file:text-green-700 file:px-4 file:py-2 file:rounded-xl file:cursor-pointer hover:file:bg-blue-200 transition">
+          <?php if (!empty($habitat['image'])): ?>
+    <p class="text-sm mt-2 text-gray-600">Image actuelle :</p>
+    <img src="<?= htmlspecialchars($habitat['image']); ?>"
+         alt="Image habitat"
+         class="w-48 h-auto rounded-xl mt-2 border">
+<?php endif; ?>
+
+
+        </div>
 
     <div class="mb-6">
         <label class="block mb-2 font-semibold text-gray-700">Description</label>
-        <textarea name="description" required placeholder="Décrivez l'habitat..." rows="5"
-                  class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-300 transition"></textarea>
+        <textarea name="description" rows="5"
+         class="w-full border border-gray-300 rounded-xl px-4 py-3"><?= htmlspecialchars($habitat['description']); ?></textarea>
+
     </div>
 
     <button name="submit" type="submit" 
             class="w-full bg-green-600 text-white font-bold py-3 rounded-xl hover:bg-green-700 transition">
-        Modifier l'Habitat
+        Modifier
     </button>
 </form>
 

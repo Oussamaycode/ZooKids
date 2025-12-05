@@ -1,3 +1,27 @@
+
+<?php
+require_once 'config.php';
+
+if (!isset($_GET['id']) || empty($_GET['id'])) {
+    die("Animal non trouvé !");
+}
+
+$id = intval($_GET['id']);
+
+$sql = "SELECT animaux.*, habitats.nom AS habitat_nom FROM animaux 
+        LEFT JOIN habitats ON animaux.id_hab = habitats.id 
+        WHERE animaux.id = $id";
+
+$result = mysqli_query($conn, $sql);
+
+if (!$result || mysqli_num_rows($result) === 0) {
+    die("Animal non trouvé !");
+}
+
+$animal = mysqli_fetch_assoc($result);
+?>
+
+
 <!DOCTYPE html>
 
 <html class="light" lang="fr"><head>
@@ -63,30 +87,33 @@
 <!-- Main content section -->
 <main class="flex-grow">
 <!-- HeaderImage -->
-<div class="@container">
-<div class="p-4">
-<div class="w-full bg-center bg-no-repeat bg-cover flex flex-col justify-end overflow-hidden rounded-xl min-h-[320px] sm:min-h-[400px] md:min-h-[500px]" data-alt="A majestic lion with a golden mane resting in the savanna sun" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDJgv140fY4HlDX8OXDJg12z3i_ZYrxZcBoVUeiuEm1ghWye9P2Xq7tNkzmdcCEvbKWtT_j8l96tQmvptUb3SktplhY3HKD0-WBYsd5oaQA2Pt5Oka-wdNKdQpfiDljNoafb5IHdH8ftjuivZd3LM5CoFkNTLqmNv8IOnyY3YGVzuLIg9N7FcLtO7U1aN-gKxjyyiOVuCjhMIRYBWasaUyX_xtxhiJS_riTKdQn9MAdYX6wZ49MH3uJeMtsj1OOJqZ6iw3Rub0tyqU");'></div>
+<div class="w-full bg-center bg-no-repeat bg-cover flex flex-col justify-end overflow-hidden rounded-xl min-h-[320px] sm:min-h-[400px] md:min-h-[500px]" 
+     data-alt="<?php echo htmlspecialchars($animal['nom']); ?>" 
+     style='background-image: url("../ajouter_un_animal/<?php echo $animal['imgsrc']; ?>");'>
 </div>
-</div>
-<!-- HeadlineText -->
-<h1 class="text-[#0d1c0d] dark:text-background-light tracking-tight text-4xl sm:text-5xl md:text-6xl font-extrabold leading-tight px-4 text-center pb-3 pt-6">Le Lion</h1>
-<!-- TextGrid -->
+
+<h1 class="text-[#0d1c0d] dark:text-background-light tracking-tight text-4xl sm:text-5xl md:text-6xl font-extrabold leading-tight px-4 text-center pb-3 pt-6">
+    <?php echo htmlspecialchars($animal['nom']); ?>
+</h1>
+
 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4">
-<div class="flex flex-1 gap-4 rounded-lg border border-primary/20 bg-background-light dark:bg-background-dark p-4 flex-col items-center text-center hover:shadow-lg transition-shadow">
-<span class="material-symbols-outlined !text-5xl text-primary">wb_sunny</span>
-<div class="flex flex-col gap-1">
-<h2 class="text-[#0d1c0d] dark:text-background-light text-xl font-bold leading-tight">Habitat</h2>
-<p class="text-[#499c49] dark:text-primary/80 text-lg font-normal leading-normal">Savane</p>
+  <div class="flex flex-1 gap-4 rounded-lg border border-primary/20 bg-background-light dark:bg-background-dark p-4 flex-col items-center text-center hover:shadow-lg transition-shadow">
+    <span class="material-symbols-outlined !text-5xl text-primary">wb_sunny</span>
+    <div class="flex flex-col gap-1">
+      <h2 class="text-[#0d1c0d] dark:text-background-light text-xl font-bold leading-tight">Habitat</h2>
+      <p class="text-[#499c49] dark:text-primary/80 text-lg font-normal leading-normal"><?php echo htmlspecialchars($animal['habitat_nom']); ?></p>
+    </div>
+  </div>
+
+  <div class="flex flex-1 gap-4 rounded-lg border border-primary/20 bg-background-light dark:bg-background-dark p-4 flex-col items-center text-center hover:shadow-lg transition-shadow">
+    <span class="material-symbols-outlined !text-5xl text-primary">kebab_dining</span>
+    <div class="flex flex-col gap-1">
+      <h2 class="text-[#0d1c0d] dark:text-background-light text-xl font-bold leading-tight">Nourriture</h2>
+      <p class="text-[#499c49] dark:text-primary/80 text-lg font-normal leading-normal"><?php echo htmlspecialchars($animal['Type_alimentaire']); ?></p>
+    </div>
+  </div>
 </div>
-</div>
-<div class="flex flex-1 gap-4 rounded-lg border border-primary/20 bg-background-light dark:bg-background-dark p-4 flex-col items-center text-center hover:shadow-lg transition-shadow">
-<span class="material-symbols-outlined !text-5xl text-primary">kebab_dining</span>
-<div class="flex flex-col gap-1">
-<h2 class="text-[#0d1c0d] dark:text-background-light text-xl font-bold leading-tight">Nourriture</h2>
-<p class="text-[#499c49] dark:text-primary/80 text-lg font-normal leading-normal">Viande</p>
-</div>
-</div>
-</div>
+
 </main>
 <!-- FAB (Sound Button) -->
 <div class="fixed bottom-6 right-6 sm:bottom-10 sm:right-10">

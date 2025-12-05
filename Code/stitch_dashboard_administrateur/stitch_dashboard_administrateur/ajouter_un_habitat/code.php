@@ -22,7 +22,7 @@ if (isset($_POST['submit'])) {
             // Basic insert
             $sql = "INSERT INTO habitats (nom, description, image) VALUES ('$nom', '$description', '$targetFile')";
             if (mysqli_query($conn, $sql)) {
-                header("Location: ../liste_des_habitats/code.php");
+                header("Location: ../liste_des_habitats/code.html");
                 exit();
             } else {
                 echo "Erreur SQL: " . mysqli_error($conn);

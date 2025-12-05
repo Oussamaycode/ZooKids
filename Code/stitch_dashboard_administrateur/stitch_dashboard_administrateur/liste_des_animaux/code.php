@@ -1,13 +1,35 @@
-
 <?php
 require_once 'config.php';
 
 
-$sql = "SELECT * FROM animaux";
-$result = mysqli_query($conn, $sql);
+$habitatsSql = "SELECT * FROM habitats";
+$habitatsResult = mysqli_query($conn, $habitatsSql);
 
- 
+$sql = "SELECT * FROM animaux WHERE 1";
+
+
+if (isset($_GET['habitat']) && !empty($_GET['habitat'])) {
+    $habitatId = intval($_GET['habitat']);
+    $sql .= " AND id_hab = $habitatId";
+}
+
+
+if (isset($_GET['alimentation']) && !empty($_GET['alimentation'])) {
+    $alimentation = mysqli_real_escape_string($conn, $_GET['alimentation']);
+    $sql .= " AND type_alimentaire = '$alimentation'";
+}
+
+
+if (isset($_GET['search']) && !empty($_GET['search'])) {
+    $search = mysqli_real_escape_string($conn, $_GET['search']);
+    $sql .= " AND nom LIKE '%$search%'";
+}
+
+$result = mysqli_query($conn, $sql);
 ?>
+
+
+
 
 
 <!DOCTYPE html>
@@ -68,7 +90,8 @@ $result = mysqli_query($conn, $sql);
 </div>
 <div class="flex flex-1 justify-end gap-8">
 <div class="hidden sm:flex items-center gap-9">
-<a class="text-primary dark:text-background-light text-sm font-medium leading-normal hover:text-primary dark:hover:text-primary" href="../liste_des_animaux/code.html">Animaux</a>
+<a class="text-primary dark:text-background-light text-sm font-medium leading-normal hover:text-primary dark:hover:text-primary" href="../liste_des_animaux/code.php">Animaux</a>
+<a class="text-[#0d1c0d] dark:text-primary text-sm font-medium leading-normal hover:text-primary dark:hover:text-primary"  href="../tableau_de_bord_statistiques/code.php">Statistiques</a>
 <a class="text-[#0d1c0d] dark:text-primary text-sm font-medium leading-normal hover:text-primary dark:hover:text-primary" href="../accueil_du_zoo/code.html">Accueil</a>
 <a class="text-[#0d1c0d] dark:text-background-light text-sm font-medium leading-normal hover:text-primary dark:hover:text-primary" href="../liste_des_habitats/code.php">Habitats</a>
 </div>
@@ -87,43 +110,54 @@ $result = mysqli_query($conn, $sql);
 </label>
 </div>
 <div class="flex flex-col gap-4">
-<h3 class="text-lg font-bold leading-tight tracking-[-0.015em]">Filter par Habitat</h3>
+    <h3 class="text-lg font-bold leading-tight tracking-[-0.015em]">Filter par Habitat</h3>
+    <div class="flex flex-col gap-2">
+        <?php if ($habitatsResult && mysqli_num_rows($habitatsResult) > 0): ?>
+            <?php while ($habitat = mysqli_fetch_assoc($habitatsResult)): ?>
+                <a href="?habitat=<?php echo $habitat['id']; ?>" 
+                   class="flex w-full items-center gap-4 p-3 rounded-lg hover:bg-primary/20 dark:hover:bg-primary/30 transition-colors <?php echo (isset($_GET['habitat']) && $_GET['habitat']==$habitat['id'])?'bg-primary/30':''; ?>">
+                    <span class="material-symbols-outlined text-text-light dark:text-text-dark">
+                        <?php echo $habitat['icon'] ?? 'forest'; ?>
+                    </span>
+                    <span class="text-sm font-medium"><?php echo $habitat['nom']; ?></span>
+                </a>
+            <?php endwhile; ?>
+        <?php else: ?>
+            <p>Aucun habitat disponible.</p>
+        <?php endif; ?>
+        <!-- Reset filter -->
+        <a href="?" class="text-sm font-medium text-green-700 mt-2 hover:underline">Afficher tous les habitats</a>
+    </div>
+</div>
+
 <div class="flex flex-col gap-2">
-<button class="flex w-full items-center gap-4 p-3 rounded-lg bg-primary/20 dark:bg-primary/30">
-<span class="material-symbols-outlined text-text-light dark:text-text-dark">forest</span>
-<span class="text-sm font-medium">Forêt</span>
-</button>
-<button class="flex w-full items-center gap-4 p-3 rounded-lg hover:bg-primary/20 dark:hover:bg-primary/30 transition-colors">
-<span class="material-symbols-outlined text-text-light dark:text-text-dark">emoji_nature</span>
-<span class="text-sm font-medium">Jungle</span>
-</button>
-<button class="flex w-full items-center gap-4 p-3 rounded-lg hover:bg-primary/20 dark:hover:bg-primary/30 transition-colors">
-<span class="material-symbols-outlined text-text-light dark:text-text-dark">water</span>
-<span class="text-sm font-medium">Océan</span>
-</button>
+    <?php
+    $alims = ['Carnivore', 'Herbivore', 'Omnivore'];
+    foreach ($alims as $alim) {
+        // Preserve the current habitat filter
+        $link = "?alimentation=$alim";
+        if (isset($_GET['habitat']) && !empty($_GET['habitat'])) {
+            $link .= "&habitat=" . intval($_GET['habitat']);
+        }
+        $active = (isset($_GET['alimentation']) && $_GET['alimentation'] === $alim) ? 'bg-primary/30' : '';
+        ?>
+        <a href="<?php echo $link; ?>" 
+           class="flex w-full items-center gap-4 p-3 rounded-lg hover:bg-primary/20 dark:hover:bg-primary/30 transition-colors <?php echo $active; ?>">
+            <span class="material-symbols-outlined text-text-light dark:text-text-dark">
+                <?php
+                if ($alim === 'Carnivore') echo 'kebab_dining';
+                elseif ($alim === 'Herbivore') echo 'eco';
+                else echo 'restaurant';
+                ?>
+            </span>
+            <span class="text-sm font-medium"><?php echo $alim; ?></span>
+        </a>
+    <?php } ?>
+    <!-- Reset alimentation filter -->
+    <a href="<?php echo isset($_GET['habitat']) ? '?habitat=' . intval($_GET['habitat']) : '?'; ?>" 
+       class="text-sm font-medium text-green-700 mt-2 hover:underline">Afficher tous les types</a>
 </div>
-</div>
-<div class="flex flex-col gap-4">
-<h3 class="text-lg font-bold leading-tight tracking-[-0.015em]">Filter par Alimentation</h3>
-<div class="flex flex-col gap-2">
-<button class="flex w-full items-center gap-4 p-3 rounded-lg hover:bg-primary/20 dark:hover:bg-primary/30 transition-colors">
-<span class="material-symbols-outlined text-text-light dark:text-text-dark">kebab_dining</span>
-<span class="text-sm font-medium">Carnivore</span>
-</button>
-<button class="flex w-full items-center gap-4 p-3 rounded-lg hover:bg-primary/20 dark:hover:bg-primary/30 transition-colors">
-<span class="material-symbols-outlined text-text-light dark:text-text-dark">eco</span>
-<span class="text-sm font-medium">Herbivore</span>
-</button>
-<button class="flex w-full items-center gap-4 p-3 rounded-lg hover:bg-primary/20 dark:hover:bg-primary/30 transition-colors">
-<span class="material-symbols-outlined text-text-light dark:text-text-dark">restaurant</span>
-<span class="text-sm font-medium">Omnivore</span>
-</button>
-</div>
-</div>
-<button id="addananimal1" class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-4 bg-primary text-text-light text-sm font-bold leading-normal tracking-[0.015em] mt-4">
-<span class="truncate">Add an animal</span>
-</button>
-</div>
+
 </aside>
 <div class="flex-1 p-6 md:p-10">
 <div class="flex flex-wrap justify-between gap-3 mb-8">
@@ -139,7 +173,7 @@ if ($result && mysqli_num_rows($result) > 0) {
     while ($row = mysqli_fetch_assoc($result)) {
         ?>
 
-      <a id="animal1" class="group flex flex-col gap-4 cursor-pointer" href="../détails_de_l'animal/code.html">
+<a href="../détails_de_l'animal/code.php?id=<?php echo $row['id']; ?>" class="group/design-root flex flex-col items-center p-4 bg-surface-light dark:bg-surface-dark rounded-xl hover:shadow-lg transition-shadow">
 <div  class="bg-surface-light dark:bg-surface-dark aspect-square w-full rounded-lg overflow-hidden flex items-center justify-center transition-transform group-hover:scale-105">
     <img src="../ajouter_un_animal/<?php echo $row['imgsrc']; ?>" class="h-full w-full object-cover">
 </div>
