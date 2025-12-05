@@ -11,9 +11,6 @@ if (isset($_POST['submit'])) {
     if (isset($_FILES['image']) && $_FILES['image']['error'] === 0) {
 
         $targetDir = "uploads/";
-        if (!is_dir($targetDir)) {
-            mkdir($targetDir, 0777, true);
-        }
 
         $targetFile = $targetDir . basename($_FILES['image']['name']);
 
