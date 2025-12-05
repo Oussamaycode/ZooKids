@@ -8,13 +8,13 @@ $habitatsResult = mysqli_query($conn, $habitatsSql);
 $sql = "SELECT * FROM animaux WHERE 1";
 
 
-if (isset($_GET['habitat']) && !empty($_GET['habitat'])) {
-    $habitatId = intval($_GET['habitat']);
+if (isset($_GET['habitat']) ) {
+    $habitatId = ($_GET['habitat']);
     $sql .= " AND id_hab = $habitatId";
 }
 
 
-if (isset($_GET['alimentation']) && !empty($_GET['alimentation'])) {
+if (isset($_GET['alimentation']) && ) {
     $alimentation = mysqli_real_escape_string($conn, $_GET['alimentation']);
     $sql .= " AND type_alimentaire = '$alimentation'";
 }
@@ -137,7 +137,7 @@ $result = mysqli_query($conn, $sql);
         // Preserve the current habitat filter
         $link = "?alimentation=$alim";
         if (isset($_GET['habitat']) && !empty($_GET['habitat'])) {
-            $link .= "&habitat=" . intval($_GET['habitat']);
+            $link .= "&habitat=" . ($_GET['habitat']);
         }
         $active = (isset($_GET['alimentation']) && $_GET['alimentation'] === $alim) ? 'bg-primary/30' : '';
         ?>
@@ -154,7 +154,7 @@ $result = mysqli_query($conn, $sql);
         </a>
     <?php } ?>
     <!-- Reset alimentation filter -->
-    <a href="<?php echo isset($_GET['habitat']) ? '?habitat=' . intval($_GET['habitat']) : '?'; ?>" 
+    <a href="<?php echo isset($_GET['habitat']) ? '?habitat=' .($_GET['habitat']) : '?'; ?>" 
        class="text-sm font-medium text-green-700 mt-2 hover:underline">Afficher tous les types</a>
 </div>
 

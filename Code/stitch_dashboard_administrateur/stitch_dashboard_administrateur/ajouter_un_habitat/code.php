@@ -12,6 +12,10 @@ if (isset($_POST['submit'])) {
 
         $targetDir = "uploads/";
 
+        if (!is_dir($targetDir)) {
+            mkdir($targetDir, 0777);
+        }
+
         $targetFile = $targetDir . basename($_FILES['image']['name']);
 
         if (move_uploaded_file($_FILES['image']['tmp_name'], $targetFile)) {
