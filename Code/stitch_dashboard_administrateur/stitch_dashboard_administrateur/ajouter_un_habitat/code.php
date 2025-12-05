@@ -19,7 +19,7 @@ if (isset($_POST['submit'])) {
 
         if (move_uploaded_file($_FILES['image']['tmp_name'], $targetFile)) {
 
-            // Basic insert
+            
             $sql = "INSERT INTO habitats (nom, description, image) VALUES ('$nom', '$description', '$targetFile')";
             if (mysqli_query($conn, $sql)) {
                 header("Location: ../liste_des_habitats/code.html");
