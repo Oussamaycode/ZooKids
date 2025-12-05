@@ -1,19 +1,14 @@
 <?php
 require_once 'config.php';
 
-/* =========================
-   BASIC STATISTICS
-   ========================= */
 
-/* Total animaux */
+
 $q1 = mysqli_query($conn, "SELECT COUNT(*) AS total FROM animaux");
 $total_animaux = mysqli_fetch_assoc($q1)['total'];
 
-/* Total habitats */
 $q2 = mysqli_query($conn, "SELECT COUNT(*) AS total FROM habitats");
 $total_habitats = mysqli_fetch_assoc($q2)['total'];
 
-/* Animaux par habitat */
 $q3 = mysqli_query($conn, "
     SELECT id_hab, COUNT(*) AS total
     FROM animaux
@@ -33,7 +28,7 @@ while ($row = mysqli_fetch_assoc($q3)) {
     }
 }
 
-/* Récupérer les habitats */
+
 $habitats = [];
 $q4 = mysqli_query($conn, "SELECT id, nom FROM habitats");
 while ($row = mysqli_fetch_assoc($q4)) {
@@ -42,7 +37,7 @@ while ($row = mysqli_fetch_assoc($q4)) {
 
 $habitat_plus_peuple_nom = $habitats[$habitat_plus_peuple_id] ?? "Aucun";
 
-/* Animaux par type alimentaire */
+
 $q5 = mysqli_query($conn, "
     SELECT type_alimentaire, COUNT(*) AS total
     FROM animaux
