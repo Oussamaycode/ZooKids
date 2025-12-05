@@ -28,7 +28,6 @@ while ($row = mysqli_fetch_assoc($q3)) {
     }
 }
 
-
 $habitats = [];
 $q4 = mysqli_query($conn, "SELECT id, nom FROM habitats");
 while ($row = mysqli_fetch_assoc($q4)) {
@@ -158,8 +157,7 @@ tailwind.config = {
 </div>
 <?php endforeach; ?>
 </div>
-
-<!-- TYPE ALIMENTAIRE -->
+<!-- FOOD TYPE STATS -->
 <div class="bg-white p-6 rounded shadow">
 <h2 class="text-2xl font-bold mb-4">Animaux par type alimentaire</h2>
 
