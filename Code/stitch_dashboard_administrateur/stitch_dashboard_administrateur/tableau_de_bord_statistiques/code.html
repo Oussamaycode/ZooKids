@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Tableau de Bord Statistiques</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings:
+            'FILL' 0,
+            'wght' 400,
+            'GRAD' 0,
+            'opsz' 24
+        }
+    </style>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#0df20d",
+              "background-light": "#f5f8f5",
+              "background-dark": "#102210",
+              "text-light": "#0d1c0d",
+              "text-dark": "#e7f4e7",
+              "border-light": "#cee8ce",
+              "border-dark": "#2a4b2a",
+              "card-light": "#ffffff",
+              "card-dark": "#1a361a"
+            },
+            fontFamily: {
+              "display": ["Lexend", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+</head>
+<body class="font-display bg-background-light dark:bg-background-dark text-text-light dark:text-text-dark">
+<div class="relative flex min-h-screen w-full flex-col">
+<div class="layout-container flex h-full grow flex-col">
+<div class="px-4 md:px-10 lg:px-20 xl:px-40 flex flex-1 justify-center py-5">
+<div class="layout-content-container flex flex-col max-w-[960px] flex-1">
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-border-light dark:border-border-dark px-4 md:px-10 py-3">
+<div class="flex items-center gap-4 text-text-light dark:text-text-dark">
+<div class="size-6 text-primary">
+<svg fill="currentColor" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path clip-rule="evenodd" d="M24 4H6V17.3333V30.6667H24V44H42V30.6667V17.3333H24V4Z" fill-rule="evenodd"></path>
+</svg>
+</div>
+<h2 class="text-lg font-bold leading-tight tracking-[-0.015em]">Zoo Learning App</h2>
+</div>
+<div class="hidden md:flex flex-1 justify-end gap-8">
+<div class="flex items-center gap-9">
+<a class="text-sm font-medium leading-normal hover:text-primary dark:hover:text-primary transition-colors" href="#">Accueil</a>
+<a class="text-sm font-medium leading-normal hover:text-primary dark:hover:text-primary transition-colors" href="#">Gestion des Animaux</a>
+<a class="text-primary dark:text-primary text-sm font-bold leading-normal" href="#">Tableau de Bord</a>
+</div>
+<div class="flex items-center gap-2">
+<button class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 w-10 bg-primary/20 text-text-light dark:text-text-dark dark:bg-primary/30 hover:bg-primary/30 dark:hover:bg-primary/40 transition-colors">
+<span class="material-symbols-outlined text-xl">notifications</span>
+</button>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" data-alt="User profile picture" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBnnBmURC9sGqiAPwWtOSd7FMKyzvWhZwEQfoVUFWjtbQiQ9KJCWN-KEZhclE0Z_ISJj9DX4WWbcRnd_yzRCaS6ppgBWGIsOPSfi4lk4ju1eVFlh68qcoTKx3LxAJnyMUEfqe9n002elyNrKFgHmWbBArhH232h_ziLD4S_a8jgNWZ9seBb1vMHI0aofSeyT4mLhnEE-Trlfnh7PxDIiZhMlmhIlozHKR90hODXt2aRsFlqW2PxJYH8gHTPsr8OrNZyXBDHDWYAs_o");'></div>
+</div>
+</div>
+<button class="md:hidden flex items-center justify-center rounded-lg h-10 w-10 bg-primary/20 hover:bg-primary/30 transition-colors">
+<span class="material-symbols-outlined text-2xl">menu</span>
+</button>
+</header>
+<main class="flex-1 p-4">
+<div class="flex flex-wrap justify-between gap-3 mb-8">
+<div class="flex min-w-72 flex-col gap-2">
+<p class="text-4xl font-black leading-tight tracking-[-0.033em] text-text-light dark:text-text-dark">Tableau de Bord Statistiques</p>
+<p class="text-base font-normal leading-normal text-green-700 dark:text-green-300">Aperçu des données d'apprentissage de vos enfants</p>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+<div class="flex min-w-[158px] flex-1 flex-col gap-2 rounded-xl p-6 border bg-card-light dark:bg-card-dark border-border-light dark:border-border-dark">
+<p class="text-base font-medium leading-normal text-text-light/80 dark:text-text-dark/80">Total Animaux</p>
+<p class="tracking-light text-4xl font-bold leading-tight">86</p>
+<p class="text-base font-medium leading-normal text-green-600 dark:text-green-400">+12% ce mois-ci</p>
+</div>
+<div class="flex min-w-[158px] flex-1 flex-col gap-2 rounded-xl p-6 border bg-card-light dark:bg-card-dark border-border-light dark:border-border-dark">
+<p class="text-base font-medium leading-normal text-text-light/80 dark:text-text-dark/80">Total Habitats</p>
+<p class="tracking-light text-4xl font-bold leading-tight">7</p>
+<p class="text-base font-medium leading-normal text-green-600 dark:text-green-400">+2% ce mois-ci</p>
+</div>
+<div class="flex min-w-[158px] flex-1 flex-col gap-2 rounded-xl p-6 border-2 bg-primary/20 dark:bg-primary/30 border-primary">
+<p class="text-base font-medium leading-normal text-text-light/80 dark:text-text-dark/80">Habitat le Plus Peuplé</p>
+<p class="tracking-light text-4xl font-bold leading-tight">Savane</p>
+<p class="text-base font-medium leading-normal text-green-700 dark:text-green-300">avec 24 animaux</p>
+</div>
+</div>
+<h2 class="text-[22px] font-bold leading-tight tracking-[-0.015em] pt-10 pb-4">Analyses Détaillées</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="rounded-xl border border-border-light dark:border-border-dark bg-card-light dark:bg-card-dark p-6">
+<h3 class="text-lg font-bold mb-4">Nombre d'Animaux par Habitat</h3>
+<div class="flex flex-col gap-4">
+<div class="flex items-center gap-3">
+<div class="w-20 text-sm font-medium text-right text-text-light/80 dark:text-text-dark/80">Savane</div>
+<div class="h-8 flex-1 rounded bg-gray-200 dark:bg-gray-700">
+<div class="h-full w-[85%] rounded bg-teal-400 dark:bg-teal-500 flex items-center justify-end pr-2 text-white text-xs font-bold">24</div>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<div class="w-20 text-sm font-medium text-right text-text-light/80 dark:text-text-dark/80">Forêt</div>
+<div class="h-8 flex-1 rounded bg-gray-200 dark:bg-gray-700">
+<div class="h-full w-[65%] rounded bg-orange-400 dark:bg-orange-500 flex items-center justify-end pr-2 text-white text-xs font-bold">18</div>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<div class="w-20 text-sm font-medium text-right text-text-light/80 dark:text-text-dark/80">Jungle</div>
+<div class="h-8 flex-1 rounded bg-gray-200 dark:bg-gray-700">
+<div class="h-full w-[50%] rounded bg-green-500 dark:bg-green-600 flex items-center justify-end pr-2 text-white text-xs font-bold">14</div>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<div class="w-20 text-sm font-medium text-right text-text-light/80 dark:text-text-dark/80">Océan</div>
+<div class="h-8 flex-1 rounded bg-gray-200 dark:bg-gray-700">
+<div class="h-full w-[40%] rounded bg-blue-400 dark:bg-blue-500 flex items-center justify-end pr-2 text-white text-xs font-bold">11</div>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<div class="w-20 text-sm font-medium text-right text-text-light/80 dark:text-text-dark/80">Montagne</div>
+<div class="h-8 flex-1 rounded bg-gray-200 dark:bg-gray-700">
+<div class="h-full w-[30%] rounded bg-gray-400 dark:bg-gray-500 flex items-center justify-end pr-2 text-white text-xs font-bold">9</div>
+</div>
+</div>
+</div>
+</div>
+<div class="rounded-xl border border-border-light dark:border-border-dark bg-card-light dark:bg-card-dark p-6">
+<h3 class="text-lg font-bold mb-4">Nombre d'Animaux par Type Alimentaire</h3>
+<div class="flex items-center justify-center gap-8">
+<div class="relative w-40 h-40">
+<svg class="w-full h-full" viewbox="0 0 36 36">
+<circle class="dark:stroke-red-800" cx="18" cy="18" fill="transparent" r="15.9155" stroke="#fca5a5" stroke-width="3"></circle>
+<circle class="dark:stroke-green-800" cx="18" cy="18" fill="transparent" r="15.9155" stroke="#86efac" stroke-dasharray="51, 100" stroke-dashoffset="-25" stroke-width="3"></circle>
+<circle class="dark:stroke-blue-800" cx="18" cy="18" fill="transparent" r="15.9155" stroke="#93c5fd" stroke-dasharray="24, 100" stroke-dashoffset="-76" stroke-width="3"></circle>
+</svg>
+<div class="absolute inset-0 flex items-center justify-center flex-col">
+<span class="text-3xl font-bold">86</span>
+<span class="text-xs text-text-light/70 dark:text-text-dark/70">Animaux</span>
+</div>
+</div>
+<div class="flex flex-col gap-3 text-sm">
+<div class="flex items-center gap-2">
+<div class="size-3 rounded-full bg-[#86efac] dark:bg-green-800"></div>
+<div>
+<span class="font-bold">Herbivore:</span>
+<span class="text-text-light/80 dark:text-text-dark/80">44 (51%)</span>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<div class="size-3 rounded-full bg-[#fca5a5] dark:bg-red-800"></div>
+<div>
+<span class="font-bold">Carnivore:</span>
+<span class="text-text-light/80 dark:text-text-dark/80">21 (24%)</span>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<div class="size-3 rounded-full bg-[#93c5fd] dark:bg-blue-800"></div>
+<div>
+<span class="font-bold">Omnivore:</span>
+<span class="text-text-light/80 dark:text-text-dark/80">21 (24%)</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</div>
+</div>
+</div>
+</body></html>
