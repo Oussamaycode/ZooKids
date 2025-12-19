@@ -5,7 +5,7 @@ CREATE TABLE habitats (
 );
 
 CREATE TABLE animaux (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    id_animal INT AUTO_INCREMENT PRIMARY KEY,
     nom varchar(250),
     Type_alimentaire varchar(250),
     id_hab INT ,
