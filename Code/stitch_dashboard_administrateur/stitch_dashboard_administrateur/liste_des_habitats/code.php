@@ -1,7 +1,7 @@
 <?php
 require_once 'config.php';
 
-// Fetch all habitats
+
 $sql = "SELECT * FROM habitats";
 $result = mysqli_query($conn, $sql);
 ?>

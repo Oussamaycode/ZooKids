@@ -1,10 +1,6 @@
 <?php
-session_start();
+
 require_once 'config.php';
-
-
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
 
 if (isset($_POST['submit'])) {
 
@@ -19,7 +15,7 @@ if (isset($_POST['submit'])) {
 
         $targetDir = "uploads/";
         if (!is_dir($targetDir)) {
-            mkdir($targetDir, 0777, true); // create folder if it doesn't exist
+            mkdir($targetDir, 0777, true);
         }
 
         $targetFile = $targetDir . basename($imageName);
@@ -29,7 +25,7 @@ if (isset($_POST['submit'])) {
             $sql = "INSERT INTO animaux (nom, Type_alimentaire, id_hab, imgsrc)
                     VALUES ('$nom', '$typealimentaire', $Idhabitat, '$targetFile')";
 
-            if (mysqli_query($conn, $sql)) {
+            if (mysqli_query($conn, $)) {
                 echo "Animal ajouté avec succès !";
                  header("Location: ../liste_des_animaux/code.html");
                  exit();

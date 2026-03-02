@@ -1,32 +1,29 @@
 <?php
 require_once 'config.php';
 
-
 $habitatsSql = "SELECT * FROM habitats";
 $habitatsResult = mysqli_query($conn, $habitatsSql);
 
-$sql = "SELECT * FROM animaux WHERE 1";
+$sql = "SELECT * FROM animaux ";
 
-
-if (isset($_GET['habitat']) ) {
-    $habitatId = ($_GET['habitat']);
+if (isset($_GET['habitat'])) {
+    $habitatId = $_GET['habitat'];
     $sql .= " AND id_hab = $habitatId";
 }
 
-
-if (isset($_GET['alimentation']) && ) {
-    $alimentation = mysqli_real_escape_string($conn, $_GET['alimentation']);
+if (isset($_GET['alimentation'])) {
+    $alimentation = $_GET['alimentation']; 
     $sql .= " AND type_alimentaire = '$alimentation'";
 }
 
-
-if (isset($_GET['search']) && !empty($_GET['search'])) {
-    $search = mysqli_real_escape_string($conn, $_GET['search']);
+if (isset($_GET['search'])) {
+    $search = $_GET['search']; 
     $sql .= " AND nom LIKE '%$search%'";
 }
 
 $result = mysqli_query($conn, $sql);
 ?>
+>
 
 
 

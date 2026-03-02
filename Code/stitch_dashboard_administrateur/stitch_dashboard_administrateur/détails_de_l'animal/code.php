@@ -2,11 +2,11 @@
 <?php
 require_once 'config.php';
 
-if (!isset($_GET['id']) || empty($_GET['id'])) {
+if (!isset($_GET['id']) ) {
     die("Animal non trouvé !");
 }
 
-$id = intval($_GET['id']);
+$id = $_GET['id'];
 
 $sql = "SELECT animaux.*, habitats.nom AS habitat_nom FROM animaux 
         LEFT JOIN habitats ON animaux.id_hab = habitats.id 
@@ -88,12 +88,12 @@ $animal = mysqli_fetch_assoc($result);
 <main class="flex-grow">
 <!-- HeaderImage -->
 <div class="w-full bg-center bg-no-repeat bg-cover flex flex-col justify-end overflow-hidden rounded-xl min-h-[320px] sm:min-h-[400px] md:min-h-[500px]" 
-     data-alt="<?php echo htmlspecialchars($animal['nom']); ?>" 
+     data-alt="<?php echo($animal['nom']); ?>" 
      style='background-image: url("../ajouter_un_animal/<?php echo $animal['imgsrc']; ?>");'>
 </div>
 
 <h1 class="text-[#0d1c0d] dark:text-background-light tracking-tight text-4xl sm:text-5xl md:text-6xl font-extrabold leading-tight px-4 text-center pb-3 pt-6">
-    <?php echo htmlspecialchars($animal['nom']); ?>
+    <?php echo($animal['nom']); ?>
 </h1>
 
 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4">
